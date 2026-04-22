@@ -1,0 +1,339 @@
+/* index.css - Estilos globales para CalcNum Pro v6.0 */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --calc-bg: #1a1a2e;
+  --display-bg: #9ea792;
+  --display-text: #1a1c18;
+  --btn-bg: #e8e8e8;
+  --btn-text: #2c3e50;
+  --btn-shadow: #b8b8b8;
+  --btn-selected: #3498db;
+  --accent-orange: #e67e22;
+  --accent-red: #e74c3c;
+  --accent-green: #27ae60;
+  --accent-purple: #9b59b6;
+  --accent-blue: #3498db;
+  --accent-teal: #1abc9c;
+  --accent-pink: #e91e63;
+  --border: #0f3460;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+  --bg-body: #1e3c72;
+  --panel-bg: rgba(0,0,0,0.2);
+  --steps-bg: #f4f1e8;
+  --steps-text: #333;
+  --font-size-base: 16px;
+}
+
+[data-theme="light"] {
+  --calc-bg: #f5f5f5;
+  --display-bg: #e8e8e8;
+  --display-text: #2c3e50;
+  --btn-bg: #ffffff;
+  --btn-text: #2c3e50;
+  --btn-shadow: #cccccc;
+  --btn-selected: #3498db;
+  --border: #bdc3c7;
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --bg-body: #667eea;
+  --panel-bg: rgba(255,255,255,0.5);
+  --steps-bg: #ffffff;
+  --steps-text: #2c3e50;
+}
+
+html { font-size: var(--font-size-base); }
+
+body {
+  font-family: 'Courier New', monospace;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  min-height: 100vh;
+  padding: 8px;
+}
+
+@layer components {
+  .calc-frame {
+    @apply rounded-2xl p-5 shadow-xl border-[3px];
+    background: var(--calc-bg);
+    border-color: var(--border);
+  }
+
+  .calc-display {
+    @apply rounded-lg p-4 mb-5 shadow-inner border-2 relative;
+    background: var(--display-bg);
+    border-color: #7a8578;
+    font-family: 'Courier New', monospace;
+  }
+
+  .calc-key {
+    @apply rounded-xl p-4 font-semibold text-lg cursor-pointer transition-all duration-100 relative overflow-hidden;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    box-shadow: 0 6px 0 var(--btn-shadow), 0 8px 10px rgba(0,0,0,0.3);
+    touch-action: manipulation;
+  }
+
+  .calc-key:active {
+    @apply translate-y-1.5;
+    box-shadow: 0 0 0 var(--btn-shadow), inset 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  .calc-key.operator {
+    background: var(--accent-orange);
+    color: white;
+    box-shadow: 0 6px 0 #d35400, 0 8px 10px rgba(0,0,0,0.3);
+  }
+
+  .calc-key.action {
+    background: var(--accent-red);
+    color: white;
+    box-shadow: 0 6px 0 #c0392b, 0 8px 10px rgba(0,0,0,0.3);
+  }
+
+  .calc-key.equals {
+    background: var(--accent-green);
+    color: white;
+    box-shadow: 0 6px 0 #1e8449, 0 8px 10px rgba(0,0,0,0.3);
+  }
+
+  .calc-key.selected {
+    background: var(--btn-selected);
+    color: white;
+    box-shadow: 0 3px 0 #2980b9, 0 4px 8px rgba(52,152,219,0.4);
+    transform: translateY(3px);
+  }
+
+  .mode-btn {
+    @apply flex-1 min-w-[70px] p-3 rounded-lg text-xs font-semibold uppercase tracking-wider cursor-pointer transition-all;
+    background: transparent;
+    border: 2px solid transparent;
+    color: var(--text-secondary);
+  }
+
+  .mode-btn.active {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border-color: var(--accent-orange);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .section-label {
+    @apply text-xs uppercase tracking-wider mb-2 pl-1;
+    color: var(--text-secondary);
+  }
+
+  .steps-panel {
+    @apply rounded-lg mt-5 max-h-[400px] overflow-y-auto border-2;
+    background: var(--steps-bg);
+    border-color: #d4d1c8;
+    font-family: 'Courier New', monospace;
+  }
+
+  .steps-header {
+    @apply sticky top-0 px-4 py-3 text-xs uppercase tracking-wider font-bold;
+    background: #e8e5dc;
+    border-bottom: 1px solid #d4d1c8;
+    color: #666;
+  }
+
+  .steps-body {
+    @apply p-4 text-sm leading-relaxed;
+    color: var(--steps-text);
+  }
+
+  .step-line {
+    @apply py-2 border-b border-dashed border-gray-300;
+  }
+
+  .quick-input {
+    @apply w-full p-4 rounded-lg text-xl border-2 mb-2;
+    background: var(--display-bg);
+    color: var(--display-text);
+    border-color: var(--border);
+    font-family: 'Courier New', monospace;
+  }
+
+  .quick-input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+  }
+
+  .quick-input.error {
+    border-color: var(--accent-red);
+    background: #ffeaea;
+  }
+
+  .parallel-item {
+    @apply flex justify-between items-center p-2 rounded bg-black/10 text-xs;
+  }
+
+  .bit {
+    @apply w-6 h-8 rounded flex items-center justify-center font-bold text-sm border-2 border-transparent transition-all;
+  }
+
+  .bit.active {
+    background: var(--accent-green);
+    color: white;
+    border-color: #1e8449;
+  }
+
+  .bit.inactive {
+    background: var(--accent-red);
+    color: white;
+    border-color: #c0392b;
+  }
+
+  .ascii-cell {
+    @apply p-2 rounded text-center cursor-pointer transition-all;
+    background: var(--panel-bg);
+  }
+
+  .ascii-cell:hover {
+    background: var(--accent-blue);
+    color: white;
+  }
+
+  .terminal-mode {
+    @apply rounded-lg p-4 min-h-[200px] max-h-[400px] overflow-y-auto;
+    background: #0d1117;
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+  }
+
+  .subnet-card {
+    @apply p-4 rounded-lg border-l-4;
+    background: var(--panel-bg);
+    border-color: var(--accent-orange);
+  }
+
+  .truth-table th, .truth-table td {
+    @apply p-2 text-center border;
+    color: var(--text-primary);
+    border-color: var(--border);
+  }
+
+  .truth-table th {
+    @apply font-bold;
+    background: var(--panel-bg);
+  }
+
+  .ref-table th, .ref-table td {
+    @apply p-3 text-center border;
+    color: var(--text-primary);
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  .ref-table th {
+    @apply text-xs uppercase tracking-wider;
+    background: rgba(0,0,0,0.3);
+  }
+}
+
+/* Casio fx-991CW Styles */
+.casio-body {
+  background: #2a2a3a;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.05);
+  border: 3px solid #3a3a4a;
+}
+
+.casio-screen {
+  background: #8faa8f;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  color: #1a1c18;
+  box-shadow: inset 0 3px 10px rgba(0,0,0,0.2);
+  border: 2px solid #6a8a6a;
+  min-height: 80px;
+}
+
+.casio-key {
+  background: #3a3a4a;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #2a2a3a, 0 6px 8px rgba(0,0,0,0.3);
+  transition: all 0.1s;
+  font-family: 'Courier New', monospace;
+}
+
+.casio-key:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #2a2a3a, inset 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.casio-key.func { background: #4a5568; color: #a0aec0; }
+.casio-key.shift { background: #e53e3e; color: white; }
+.casio-key.alpha { background: #3182ce; color: white; }
+.casio-key.execute { background: #38a169; color: white; }
+
+/* TI-Nspire CX Styles */
+.ti-body {
+  background: #1a1a2e;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  border: 3px solid #2a2a4e;
+}
+
+.ti-screen {
+  background: #c8d4c8;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  color: #1a1c18;
+  box-shadow: inset 0 3px 10px rgba(0,0,0,0.2);
+  border: 2px solid #a8b4a8;
+  min-height: 200px;
+}
+
+.ti-key {
+  background: #2a2a4a;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 6px;
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #1a1a3a, 0 4px 6px rgba(0,0,0,0.3);
+  transition: all 0.1s;
+  font-family: 'Courier New', monospace;
+}
+
+.ti-key:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #1a1a3a;
+}
+
+.ti-key.doc { background: #4a5568; }
+.ti-key.menu { background: #2d3748; }
+.ti-key.ctrl { background: #553c9a; color: #d6bcfa; }
+.ti-key.trig { background: #2b6cb0; color: #bee3f8; }
+.ti-key.num { background: #1a202c; }
+.ti-key.enter { background: #276749; color: #c6f6d5; }
+.ti-key.nav { background: #744210; color: #fbd38d; }
+
+/* Animations */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-animate {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--accent-orange); border-radius: 3px; }
